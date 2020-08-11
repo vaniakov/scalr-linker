@@ -16,7 +16,7 @@
 
   function loadAndHighlight () {
     // using browser extension storage for loading popup values
-    const gettingStoredSettings = browser.storage.local.get()
+    const gettingStoredSettings = chrome.storage.local.get()
     gettingStoredSettings.then(restoredSettings => {
       higlight(restoredSettings.jiraPrefix || DEFAULT_PREFIX, restoredSettings.baseUrl || DEFAULT_BASE_URL)
     }, error => { console.log(error) })
@@ -77,7 +77,7 @@
     }
   }
 
-  browser.runtime.onMessage.addListener((message) => {
+  chrome.runtime.onMessage.addListener((message) => {
     if (message.action === 'highlight') {
       reset()
       higlight(message.jiraPrefix, message.baseUrl)
@@ -88,7 +88,7 @@
 
   loadAndHighlight()
 
-  browser.runtime.onMessage.addListener(
+  chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
       // listen for messages sent from background.js
       if (request.event === 'tabUpdated') {
