@@ -1,0 +1,9 @@
+a.jira-link {
+    background: url('icons/jira.png') no-repeat left center;
+    background-size:100%;
+    padding-left: 19px;
+}
+.jira-link, .jira-link:active {
+    text-decoration: none;
+    color: inherit;
+}

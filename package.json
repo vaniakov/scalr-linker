@@ -1,0 +1,30 @@
+{
+  "name": "linker",
+  "version": "1.0.0",
+  "description": "Highlight links to Jira tickets on the github.com website",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaniakov/linker.git"
+  },
+  "keywords": [
+    "firefox"
+  ],
+  "author": "vaniakov95@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaniakov/linker/issues"
+  },
+  "homepage": "https://github.com/vaniakov/linker#readme",
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}

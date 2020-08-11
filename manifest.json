@@ -1,0 +1,35 @@
+{
+
+  "manifest_version": 2,
+  "name": "Linker",
+  "version": "1.0",
+
+  "description": "Adds a link to all words on the webpages matching Jira project prefix",
+
+  "icons": {
+    "48": "icons/scalr.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/scalr.png",
+    "default_title": "Linker",
+    "default_popup": "popup/options.html"
+  },
+  "background": {
+    "scripts":["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.github.com/*"],
+      "js": ["contentscript.js"],
+      "css": ["inject.css"]
+    }
+  ]
+
+}
