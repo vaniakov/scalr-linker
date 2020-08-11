@@ -1,5 +1,5 @@
 a.jira-link {
-    background: url('icons/jira.png') no-repeat left center;
+    background: url('chrome-extension://__MSG_@@extension_id__/icons/jira.png') no-repeat left center, url('icons/jira.png') no-repeat left center;
     background-size:100%;
     padding-left: 19px;
 }

@@ -8,7 +8,6 @@
   window.hasRun = true
 
   /* in general it's not limited to the github */
-  const GITHUB_CONTENT_CLASS = 'repository-content'
   const LINK_CLASS = 'jira-link'
 
   const DEFAULT_PREFIX = 'SCALRCORE-'
@@ -16,7 +15,7 @@
 
   function loadAndHighlight () {
     // using browser extension storage for loading popup values
-    const gettingStoredSettings = chrome.storage.local.get()
+    const gettingStoredSettings = browser.storage.local.get()
     gettingStoredSettings.then(restoredSettings => {
       higlight(restoredSettings.jiraPrefix || DEFAULT_PREFIX, restoredSettings.baseUrl || DEFAULT_BASE_URL)
     }, error => { console.log(error) })
@@ -51,7 +50,7 @@
     }
 
     const regex = new RegExp(jiraPrefix + '\\d+', 'i')
-    let targetContainer = document.getElementsByClassName(GITHUB_CONTENT_CLASS)
+    let targetContainer = document.getElementsByTagName('body')
     if (targetContainer.length !== 0) {
       targetContainer = targetContainer[0]
       let textNodes = searchTextNodesUnder(targetContainer)
@@ -77,7 +76,7 @@
     }
   }
 
-  chrome.runtime.onMessage.addListener((message) => {
+  browser.runtime.onMessage.addListener((message) => {
     if (message.action === 'highlight') {
       reset()
       higlight(message.jiraPrefix, message.baseUrl)
@@ -88,7 +87,7 @@
 
   loadAndHighlight()
 
-  chrome.runtime.onMessage.addListener(
+  browser.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
       // listen for messages sent from background.js
       if (request.event === 'tabUpdated') {

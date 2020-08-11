@@ -9,6 +9,9 @@
   "icons": {
     "48": "icons/scalr.png"
   },
+  "web_accessible_resources": [
+    "icons/*"
+  ],
 
   "permissions": [
     "activeTab",
@@ -22,12 +25,15 @@
     "default_popup": "popup/options.html"
   },
   "background": {
-    "scripts":["background.js"]
+    "scripts":[
+      "browser-polyfill.min.js",
+      "background.js"
+    ]
   },
   "content_scripts": [
     {
       "matches": ["https://*.github.com/*"],
-      "js": ["contentscript.js"],
+      "js": ["browser-polyfill.min.js", "contentscript.js"],
       "css": ["inject.css"]
     }
   ]
