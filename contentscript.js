@@ -12,12 +12,15 @@
 
   const DEFAULT_PREFIX = 'SCALRCORE-'
   const DEFAULT_BASE_URL = 'https://scalr-labs.atlassian.net/browse/'
+  const DEFAULT_PR_ONLY = true
+  const PR_HEADER_SELECTOR = '.js-issue-title'
+  const DEFAULT_SELECTOR = 'body'
 
   function loadAndHighlight () {
     // using browser extension storage for loading popup values
     const gettingStoredSettings = browser.storage.local.get()
     gettingStoredSettings.then(restoredSettings => {
-      higlight(restoredSettings.jiraPrefix || DEFAULT_PREFIX, restoredSettings.baseUrl || DEFAULT_BASE_URL)
+      higlight(restoredSettings.jiraPrefix || DEFAULT_PREFIX, restoredSettings.baseUrl || DEFAULT_BASE_URL, restoredSettings.prOnly || DEFAULT_PR_ONLY)
     }, error => { console.log(error) })
   }
   // remove all created links
@@ -29,7 +32,7 @@
   }
 
   // Add links to Jira tickets for the found ticket ids
-  function higlight (jiraPrefix, baseUrl) {
+  function higlight (jiraPrefix, baseUrl, prOnly) {
     function searchTextNodesUnder (el) {
       var n; var a = []; var walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false)
       n = walk.nextNode()
@@ -50,7 +53,13 @@
     }
 
     const regex = new RegExp(jiraPrefix + '\\d+', 'i')
-    let targetContainer = document.getElementsByTagName('body')
+    var selector = DEFAULT_SELECTOR
+    if (prOnly) {
+      selector = PR_HEADER_SELECTOR
+    }
+
+    let targetContainer = document.querySelectorAll(selector)
+
     if (targetContainer.length !== 0) {
       targetContainer = targetContainer[0]
       let textNodes = searchTextNodesUnder(targetContainer)
@@ -73,13 +82,15 @@
           }
         }
       })
+    } else {
+      console.debug('No elements for selector: ' + selector)
     }
   }
 
   browser.runtime.onMessage.addListener((message) => {
     if (message.action === 'highlight') {
       reset()
-      higlight(message.jiraPrefix, message.baseUrl)
+      higlight(message.jiraPrefix, message.baseUrl, message.prOnly)
     } else if (message.action === 'reset') {
       reset()
     }

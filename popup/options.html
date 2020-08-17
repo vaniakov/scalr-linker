@@ -6,13 +6,17 @@
     <link rel="stylesheet" href="options.css" />
 </head>
 
-<body>
+<body scroll="no" style="overflow: hidden">
     <div id="popup-content">
         <div id="linker-form">
-            <label for="jira-prefix">Jira prefix</label>
-            <input type="text" id="jira-prefix" name="jiraPrefix" placeholder="SCALRCORE-">
+            <label for="jira-prefix">Jira prefix regexp</label>
+            <input type="text" id="jira-prefix" name="jiraPrefix" placeholder="SCALRCORE-\d+">
             <label for="Base URL">Jira base URL</label>
             <input type="text" id="base-url" name="baseUrl" placeholder="https://scalr-labs.atlassian.net/browse/">
+            <label class="cb-container" for="pr-only">PR only
+                <input type="checkbox" id="pr-only" name="prOnly">
+                <span class="checkmark"></span>
+            </label>
             <div class="buttons-container">
             <input type="submit" value="Save" class="save">
             <button class="reset">Reset</button> 
