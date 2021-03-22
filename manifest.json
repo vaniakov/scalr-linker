@@ -32,7 +32,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.github.com/*"],
+      "matches": ["https://*.github.com/*", "https://*.scalr-labs.net/*"],
       "js": ["browser-polyfill.min.js", "contentscript.js"],
       "css": ["inject.css"]
     }
